@@ -27,9 +27,8 @@ public class Chamado implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
 
-   
-    private Prioridade prioridade;
     
+    private Prioridade prioridade;
     private Status status;
     private String titulo;
     private String observacoes;
