@@ -2,10 +2,10 @@ package helpdesk.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import org.apache.tomcat.util.http.parser.Priority;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import helpdesk.domain.enums.Prioridade;
 import helpdesk.domain.enums.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import helpdesk.domain.enums.Prioridade;
 
 @Entity
 public class Chamado implements Serializable {
@@ -28,8 +27,9 @@ public class Chamado implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
 
-    
+   
     private Prioridade prioridade;
+    
     private Status status;
     private String titulo;
     private String observacoes;
@@ -44,9 +44,11 @@ public class Chamado implements Serializable {
     public Chamado() {
         super();
     }
-    public Chamado(Integer id, Priority prioridade, String titulo, String observacoes, Tecnico tecnico,
+    public Chamado(Integer id, Prioridade prioridade,Status status, String titulo, String observacoes, Tecnico tecnico,
             Cliente cliente) {
         this.id = id;
+        this.titulo = titulo;
+        this.prioridade = prioridade;
         this.titulo = titulo;
         this.observacoes = observacoes;
         this.tecnico = tecnico;
@@ -130,13 +132,5 @@ public class Chamado implements Serializable {
             return false;
         return true;
     }
-
-    
-
-
-    
-
-    
-
 
 }
