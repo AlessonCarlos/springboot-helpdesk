@@ -11,6 +11,8 @@ import helpdesk.services.TecnicoService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 
@@ -29,6 +31,12 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(new tecnicoDTO(obj));
        
 
+    }
+    @GetMapping
+    public ResponseEntity<List<tecnicoDTO>> findAll(){
+        List<Tecnico> list = service.findAll();
+        List<tecnicoDTO> listDTO = list.stream().map(obj -> new tecnicoDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
 
