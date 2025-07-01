@@ -37,5 +37,4 @@ build/
 *.trace.db
 /data/
 
-### Ignorar pasta externa helpdesk-back ###
-../helpdesk-back/
+
