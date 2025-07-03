@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import helpdesk.domain.Tecnico;
 import helpdesk.domain.dtos.tecnicoDTO;
 import helpdesk.services.TecnicoService;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class TecnicoResource {
     @Autowired
     private TecnicoService service;
 
+    // faz busca do tecnico pelo ID
     @GetMapping(value = "/{id}")
     public ResponseEntity<tecnicoDTO> findById(@PathVariable Integer id){
         Tecnico obj = this.service.findById(id);
@@ -37,6 +39,8 @@ public class TecnicoResource {
        
 
     }
+
+    // lista todos os tecnicos
     @GetMapping
     public ResponseEntity<List<tecnicoDTO>> findAll(){
         List<Tecnico> list = service.findAll();
@@ -44,14 +48,13 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-
+// criação novo tecnico
     @PostMapping
-    public ResponseEntity<tecnicoDTO> create(@RequestBody tecnicoDTO objDto) {
+    public ResponseEntity<tecnicoDTO> create(@Valid @RequestBody tecnicoDTO objDto) {
         Tecnico newObj = service.create(objDto);
         //configuração de acesso
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
-
 
     }
 
