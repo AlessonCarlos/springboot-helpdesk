@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import helpdesk.domain.Tecnico;
 import helpdesk.domain.dtos.tecnicoDTO;
@@ -11,6 +12,10 @@ import helpdesk.services.TecnicoService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +42,17 @@ public class TecnicoResource {
         List<Tecnico> list = service.findAll();
         List<tecnicoDTO> listDTO = list.stream().map(obj -> new tecnicoDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<tecnicoDTO> create(@RequestBody tecnicoDTO objDto) {
+        Tecnico newObj = service.create(objDto);
+        //configuração de acesso
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+
+
     }
 
 
