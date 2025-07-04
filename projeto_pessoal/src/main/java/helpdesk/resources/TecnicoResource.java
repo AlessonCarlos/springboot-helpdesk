@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -56,6 +58,15 @@ public class TecnicoResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
 
+    }
+
+    //Update do tecnico
+    @PutMapping(value ="/{id}")
+    public ResponseEntity<tecnicoDTO> update(@PathVariable Integer id, @RequestBody tecnicoDTO objDto){
+
+        Tecnico oldObj = service.update(id, objDto);
+
+        return ResponseEntity.ok().body(new tecnicoDTO(oldObj));
     }
 
 

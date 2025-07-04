@@ -14,6 +14,7 @@ import helpdesk.domain.dtos.tecnicoDTO;
 import helpdesk.domain.repositories.PessoaRepository;
 import helpdesk.domain.repositories.TecnicoRepository;
 import helpdesk.services.exceptions.ObjectNotFoundException;
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -43,6 +44,16 @@ public class TecnicoService {
         
     }
 
+    public Tecnico update(Integer id, @Valid tecnicoDTO objDto) {
+       objDto.setId(id);
+       Tecnico oldObj = findById(id);
+       validaPorCpfeEmail(objDto);
+       oldObj = new Tecnico(objDto);
+       return repository.save(oldObj);
+
+
+    }
+
     private void validaPorCpfeEmail(tecnicoDTO objDto) {
         
         Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
@@ -59,5 +70,7 @@ public class TecnicoService {
             
         }
     }
+
+    
 
 }
