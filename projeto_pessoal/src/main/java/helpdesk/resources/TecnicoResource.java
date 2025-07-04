@@ -11,6 +11,7 @@ import helpdesk.domain.dtos.tecnicoDTO;
 import helpdesk.services.TecnicoService;
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,7 @@ public class TecnicoResource {
 
     }
 
-    // lista todos os tecnicos
+    // endpoint listar todos os tecnicos
     @GetMapping
     public ResponseEntity<List<tecnicoDTO>> findAll(){
         List<Tecnico> list = service.findAll();
@@ -50,7 +51,7 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-// criação novo tecnico
+// endpoint criação novo tecnico
     @PostMapping
     public ResponseEntity<tecnicoDTO> create(@Valid @RequestBody tecnicoDTO objDto) {
         Tecnico newObj = service.create(objDto);
@@ -60,7 +61,7 @@ public class TecnicoResource {
 
     }
 
-    //Update do tecnico
+    //endpoint Update do tecnico
     @PutMapping(value ="/{id}")
     public ResponseEntity<tecnicoDTO> update(@PathVariable Integer id, @RequestBody tecnicoDTO objDto){
 
@@ -69,6 +70,13 @@ public class TecnicoResource {
         return ResponseEntity.ok().body(new tecnicoDTO(oldObj));
     }
 
+    //endpoint delete tecnico
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<tecnicoDTO> delete(@PathVariable Integer id){
+        service.delete(id);
+        
+        return ResponseEntity.noContent().build();
+    }
 
 
 

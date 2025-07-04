@@ -51,7 +51,17 @@ public class TecnicoService {
        oldObj = new Tecnico(objDto);
        return repository.save(oldObj);
 
+    }
 
+     public void delete(Integer id) {
+        Tecnico Obj = findById(id);
+        if (Obj.getChamados().size() > 0) {
+            throw new DataIntegrityViolationException("Técnico ordens de serviços em aberto!");
+            
+        } else {
+            repository.deleteById(id);
+        }
+        
     }
 
     private void validaPorCpfeEmail(tecnicoDTO objDto) {
@@ -70,6 +80,8 @@ public class TecnicoService {
             
         }
     }
+
+   
 
     
 
