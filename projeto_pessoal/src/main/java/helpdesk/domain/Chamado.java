@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+
 import helpdesk.domain.enums.Prioridade;
 import helpdesk.domain.enums.Status;
 import jakarta.persistence.Entity;
@@ -131,5 +132,7 @@ public class Chamado implements Serializable {
             return false;
         return true;
     }
+
+   
 
 }
