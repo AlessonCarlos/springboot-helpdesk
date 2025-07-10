@@ -1,6 +1,8 @@
 package helpdesk.resources;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +33,10 @@ public class ChamadoResource {
       @GetMapping
     public ResponseEntity<List<chamadoDTO>> findAll(){
         List<Chamado>list = service.findAll();
-        List<chamadoDTO> ListDTO = list.stream().map(chamadoDTO::new).toList();
+        List<chamadoDTO> ListDTO = list.stream().map( obj -> new chamadoDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(ListDTO);
 
     }
+
 
 }
