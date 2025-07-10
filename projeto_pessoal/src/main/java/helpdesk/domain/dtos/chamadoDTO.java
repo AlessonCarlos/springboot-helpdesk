@@ -3,9 +3,11 @@ package helpdesk.domain.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import helpdesk.domain.Chamado;
+import jakarta.validation.constraints.NotNull;
 
 public class chamadoDTO implements Serializable {
     private static final long serialVersionUID = 1L; 
@@ -15,11 +17,17 @@ public class chamadoDTO implements Serializable {
     private LocalDate dataAbertura = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private Integer prioridade;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private Integer status;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private String titulo;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private String observacoes;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private Integer tecnico;
+    @NotNull(message = "O campo tem que ser preenchido!" )
     private Integer cliente;
     private String nomeTecnico;
     private String nomeCliente;
